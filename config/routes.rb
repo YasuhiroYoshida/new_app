@@ -1,13 +1,16 @@
 NewApp::Application.routes.draw do
-  get "users/new"
+#  devise_for :users
+  resources :users
 
   root to: 'static_pages#home'
 
-  get '/signup' => 'users#new'  
+  get '/signup'  => 'users#new'  
 
-  get '/help' => 'static_pages#help'
-  get '/about' => 'static_pages#about'
+  get '/help'    => 'static_pages#help'
+  get '/about'   => 'static_pages#about'
   get '/contact' => 'static_pages#contact'  
+
+  get '/signup'  => 'users#new'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
