@@ -1,11 +1,14 @@
 NewApp::Application.routes.draw do
 #  devise_for :users
   resources :users
+  resources :sessions, only: [:new, :create, :destroy]
 
   root to: 'static_pages#home'
 
   get '/signup'  => 'users#new'  
-
+  get '/signin'  => 'sessions#new'
+  get 'signout'  => 'sessions#destroy'
+  
   get '/help'    => 'static_pages#help'
   get '/about'   => 'static_pages#about'
   get '/contact' => 'static_pages#contact'  
