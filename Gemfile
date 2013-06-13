@@ -15,8 +15,10 @@ end
 
 group :test do
   gem 'selenium-webdriver', '2.0.0'
-  gem 'capybara', '1.1.2'
+  gem 'capybara', '~>1.1.2'
   gem 'factory_girl_rails', '~>4.1.0'
+  gem 'cucumber-rails', '1.2.1', :require => false
+  gem 'database_cleaner'
 end
 
 gem 'protected_attributes'

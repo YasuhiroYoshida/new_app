@@ -1,35 +1,6 @@
-<<<<<<< HEAD
-== README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
-=======
 new_app
 =======
 
-A quick experiment. This'll be deleted soon.
->>>>>>> c53a908353f24b4927913bb12f7246952ed0e536
+A quick experiment. An app to manage music albums. Work in progress. It'll be built on Hartl's famous tutorial app.
+
+https://aqueous-shore-1529.herokuapp.com/
