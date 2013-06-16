@@ -27,9 +27,37 @@ describe User do
   it { should respond_to(:password) }
   it { should respond_to(:password_confirmation) }
   it { should respond_to(:remember_token) }
+  it { should respond_to(:admin) }
   it { should respond_to(:authenticate) }
 
   it { should be_valid }
+  it { should_not be_admin }
+
+  describe "admin attribute not accessible" do
+=begin
+    before { @user.save }
+    it "should not allow access to admin attribute" do
+    # The error is raised on console but not here
+      expect do
+        @user.update_attributes!(:admin => true)
+        # or
+        User.new(admin: true)
+      end.to raise_error(ActiveModel::MassAssignmentSecurity::Error)
+    end
+=end
+    # The below one liner is a tentative workaround 
+    before { @user.update_attributes(:admin => true) }
+    its(:admin) { should_not be_true }
+  end
+
+  describe "with admin attribute set to 'true'" do
+    before do
+      @user.save!
+      @user.toggle!(:admin)
+    end
+  
+    it { should be_admin }
+  end
 
   describe "when name is not present" do
     before { @user.name = " " }
