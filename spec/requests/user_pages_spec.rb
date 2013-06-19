@@ -44,10 +44,35 @@ describe "User pages" do
           expect { click_link('delete') }.to change(User, :count).by(-1)
         end
         it { should_not have_link('delete', href: user_path(admin)) }
-        it 'should not be able to delete themself' do
+        it "should not be able to delete themself" do
           expect do
             page.driver.delete(user_path(admin))
           end.to change(User, :count).by(0)
+        end
+      end
+
+      describe "as a regular user" do
+        let(:user_a) { FactoryGirl.create(:user) }
+        let(:user_b) { FactoryGirl.create(:user) }
+        before do
+          30.times { FactoryGirl.create(:micropost, user: user_a, content: "Lorem ipsum") }
+          30.times { FactoryGirl.create(:micropost, user: user_b, content: "LOL!!") }
+        end
+
+        it "user_a should not have 'delete' links on posts by user_b" do
+          sign_in user_a
+          visit root_path
+          user_b.feed.each do |item|
+            item.should_not have_link('delete')
+          end
+        end
+
+        it "user_b should not have 'delete' links on posts by user_a" do
+          sign_in user_b
+          visit root_path
+          user_a.feed.each do |item|
+            item.should_not have_link('delete')
+          end
         end
       end
     end
@@ -55,10 +80,19 @@ describe "User pages" do
 
   describe "profile page" do
     let(:user) { FactoryGirl.create(:user) }
+    let!(:m1) { FactoryGirl.create(:micropost, user: user, content: "foo") }
+    let!(:m2) { FactoryGirl.create(:micropost, user: user, content: "bar") }
+
     before { visit user_path(user) }
 
     it { should have_h1(user.name) }
     it { should have_title(user.name) }
+  
+    describe "microposts" do
+      it { should have_content(m1.content) }
+      it { should have_content(m2.content) }
+      it { should have_content(user.microposts.count) }
+    end
   end
 
   describe "signup" do
@@ -75,7 +109,7 @@ describe "User pages" do
       describe "after submission" do
         before { click_button submit }
 
-        it { should have_selector('title', text: 'Sign Up') }
+        it { should have_title('Sign up') }
         it { should have_content('The form contains') }
         it { should have_content('error') }
         it { should have_content('Name can\'t be blank') }
