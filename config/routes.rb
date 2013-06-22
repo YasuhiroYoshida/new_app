@@ -1,8 +1,13 @@
 NewApp::Application.routes.draw do
 #  devise_for :users
-  resources :users
-  resources :sessions, only: [:new, :create, :destroy]
-  resources :microposts, only: [:create, :destroy]
+  resources :users do
+    member do
+      get :following, :followers
+    end
+  end
+  resources :sessions,      only: [:new, :create, :destroy]
+  resources :microposts,    only: [:create, :destroy]
+  resources :relationships, only: [:create, :destroy]
 
   root to: 'static_pages#home'
 
@@ -13,7 +18,6 @@ NewApp::Application.routes.draw do
   get '/help'    => 'static_pages#help'
   get '/about'   => 'static_pages#about'
   get '/contact' => 'static_pages#contact'  
-
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

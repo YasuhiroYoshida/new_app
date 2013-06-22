@@ -1,5 +1,14 @@
 <% if signed_in? %>
-<%= render 'users/signed_in' %>
+  <%= render 'users/signed_in' %>
+    <section>
+      <%= render 'shared/user_info' %>
+    </section>
+    <section>
+      <%= render 'shared/stats' %>
+    </section>
+    <section>
+      <%= render 'shared/micropost_form' %>
+    </section>
 <% else %>
-<%= render 'users/not_signed_in' %>
+  <%= render 'users/not_signed_in' %>
 <% end %>

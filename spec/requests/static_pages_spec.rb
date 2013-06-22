@@ -33,8 +33,31 @@ describe "Static pages" do
           page.should have_selector("li##{item.id}", text: item.content)
         end
       end
-    end
     
+      describe "follower/following counts" do
+        let(:other_user) { FactoryGirl.create(:user) }
+        before do
+          other_user.follow!(user)
+          visit root_path
+        end
+
+        it { should have_link("0 following", href: following_user_path(user)) }
+        it { should have_link("1 followers", href: followers_user_path(user)) }
+      end
+
+      # Excercise 11.5.4
+      describe "follower/following stats on user profile" do
+        let(:other_user) { FactoryGirl.create(:user) }
+        before do
+          other_user.follow!(user)
+          visit user_path(user)
+        end
+
+        it { should have_link("0 following", href: following_user_path(user)) }
+        it { should have_link("1 followers", href: followers_user_path(user)) }
+      end
+    end
+  
     describe "side bar micropost counts" do
       let(:user) { FactoryGirl.create(:user) }
 
