@@ -13,6 +13,8 @@ gem 'protected_attributes'
 gem 'jquery-rails', '2.2.1'
 gem 'turbolinks', '1.1.1'
 gem 'jbuilder', '1.0.2'
+gem "paperclip", "~>3.0"
+gem 'rmagick', '~>2.13.2'
 
 
 group :development, :test do

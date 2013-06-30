@@ -136,6 +136,19 @@ describe "Authentication" do
           specify { expect(response).to redirect_to(signin_path) }
         end
       end
+      
+      describe "in the Album controller" do
+
+        describe "submitting to the create action" do
+          before { post albums_path }
+          specify { response.should redirect_to(signin_path) }
+        end
+
+        describe "submitting to the destroy action" do
+          before { delete album_path(FactoryGirl.create(:album)) }
+          specify { response.should redirect_to(signin_path) }
+        end
+      end
     end
 
     describe "as wrong user" do

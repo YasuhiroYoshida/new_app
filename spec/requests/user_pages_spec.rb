@@ -82,6 +82,8 @@ describe "User pages" do
     let(:user) { FactoryGirl.create(:user) }
     let!(:m1) { FactoryGirl.create(:micropost, user: user, content: "foo") }
     let!(:m2) { FactoryGirl.create(:micropost, user: user, content: "bar") }
+    let!(:a1) { FactoryGirl.create(:album, user: user, album_title: "てへぺろ") }
+    let!(:a2) { FactoryGirl.create(:album, user: user, album_title: "てへぺろ再度") }
 
     before { visit user_path(user) }
 
@@ -93,7 +95,13 @@ describe "User pages" do
       it { should have_content(m2.content) }
       it { should have_content(user.microposts.count) }
     end
-  
+
+    describe "albums" do
+      it { should have_content(a1.album_title) }
+      it { should have_content(a2.album_title) }
+      it { should have_content(user.albums.count) }
+    end
+
     describe "follow/unfollow buttons" do
       let(:other_user) { FactoryGirl.create(:user) }
       before { sign_in user }

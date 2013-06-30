@@ -11,6 +11,7 @@ class UsersController < ApplicationController
   def show 
     @user = User.find(params[:id])
     @microposts = @user.microposts.paginate(page: params[:page])
+    @albums = @user.albums.paginate(page: params[:page])
   end
 
   def new
@@ -76,6 +77,8 @@ class UsersController < ApplicationController
     render 'show_follow'
   end
 
+#  def album
+#  end
   private
 
 =begin This has moved to sessions_helper.rb so that Micropost's controller can use this, too.

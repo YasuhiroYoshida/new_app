@@ -30,6 +30,9 @@ describe User do
   it { should respond_to(:admin) }
   it { should respond_to(:authenticate) }
   it { should respond_to(:microposts) }
+
+  it { should respond_to(:albums) }
+
   it { should respond_to(:feed) }
   it { should respond_to(:relationships) }
   it { should respond_to(:followed_users) }
@@ -209,8 +212,27 @@ describe User do
       its(:followed_users) { should_not include(other_user) }
     end
   end
+
+  describe "album associations" do
+    before { @user.save }
+    let!(:first_album) do
+      FactoryGirl.create(:album, user: @user, album_title: "ABC" )
+    end
+    let!(:second_album) do
+      FactoryGirl.create(:album, user: @user, album_title: "C is for What?")
+    end
+
+    it "should have the right albums in the right order" do
+      expect(@user.albums.to_a).to eq [first_album, second_album]
+    end
+
+    it "shold destroy associated albums" do
+      albums = @user.albums.to_a
+      @user.destroy
+      expect(albums).not_to be_empty
+      albums.each do |album|
+        expect(Album.where(id: album.id)).to be_empty
+      end
+    end
+  end
 end
-
-
-
-

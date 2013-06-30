@@ -14,6 +14,11 @@ FactoryGirl.define do
     content "Lorem ipsum"
     user
   end
+
+  factory :album do
+    album_title "Thriller"
+    user
+  end
 end
 
 =begin

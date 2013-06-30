@@ -11,7 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130621210711) do
+ActiveRecord::Schema.define(version: 20130630160255) do
+
+  create_table "albums", force: true do |t|
+    t.string   "album_title"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
+  end
+
+  add_index "albums", ["user_id", "album_title"], name: "index_albums_on_user_id_and_album_title"
 
   create_table "microposts", force: true do |t|
     t.string   "content"

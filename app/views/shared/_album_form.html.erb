@@ -1,0 +1,8 @@
+<%= form_for @album, :html => { :multipart => true } do |g| %>
+  <%= render 'shared/error_messages', object: g.object %>
+  <div class="field">
+    <%= g.text_field :album_title, placeholder: "Enter an album title..." %>
+    <%= g.file_field :photo %>
+  </div>
+  <%= g.submit "Register", class: "btn btn-large btn-primary" %>
+<% end %>
