@@ -82,8 +82,8 @@ describe "User pages" do
     let(:user) { FactoryGirl.create(:user) }
     let!(:m1) { FactoryGirl.create(:micropost, user: user, content: "foo") }
     let!(:m2) { FactoryGirl.create(:micropost, user: user, content: "bar") }
-    let!(:a1) { FactoryGirl.create(:album, user: user, album_title: "てへぺろ") }
-    let!(:a2) { FactoryGirl.create(:album, user: user, album_title: "てへぺろ再度") }
+    let!(:a1) { FactoryGirl.create(:album, user: user, album_title: "てへぺろ", photo: Rack::Test::UploadedFile.new(Rails.root + 'spec/fixtures/files/' + 'blue.jpeg', 'image/jpg')) }
+    let!(:a2) { FactoryGirl.create(:album, user: user, album_title: "てへぺろ再度", photo: Rack::Test::UploadedFile.new(Rails.root + 'spec/fixtures/files/' + 'blue.jpeg', 'image/jpg')) }
 
     before { visit user_path(user) }
 
@@ -271,5 +271,17 @@ describe "User pages" do
       it { should have_selector('h3', text: 'Followers') }
       it { should have_link(user.name, href: user_path(user)) }
     end
+  end
+
+  describe "albums" do
+    let(:user) { FactoryGirl.create(:user) }
+    before do
+      sign_in user
+      visit albums_user_path(user)
+    end
+
+    it { should have_title(full_title('Albums')) }
+    it { should have_selector('h3', text: 'Albums') }
+    it { should have_link(user.name, href: user_path(user)) }
   end
 end

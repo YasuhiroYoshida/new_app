@@ -1,6 +1,6 @@
 <% provide(:title, @user.name) %>
 <div class="row">
-  <aside class="span4">
+  <aside class="span6">
     <section>
       <h1>
         <%= gravatar_for @user %>
@@ -10,8 +10,19 @@
     <section>
       <%= render 'shared/stats' %>
     </section>
+    <section>
+    <br><br>  
+    <% if @user.albums.any? %>
+      <h3>Albums</h3>
+      <%= page_entries_info @albums %>
+      <ol class="albums">
+        <%= render @albums %>
+      </ol>
+      <%= will_paginate @albums %>
+    <% end %>
+    </section>  
   </aside>
-  <div class="span8">
+  <div class="span6">
     <%= render 'follow_form' if signed_in? %>
     <% if @user.microposts.any? %>
       <h3>Microposts (<%= @user.microposts.count %>)</h3>
@@ -19,15 +30,6 @@
         <%= render @microposts %>
       </ol>
       <%= will_paginate @microposts %>
-    <% end %>
-  </div>
-    <div class="span8">
-    <% if @user.albums.any? %>
-      <h3>Albums (<%= @user.albums.count %>)</h3>
-      <ol class="mmicroposts">
-        <%= render @albums %>
-      </ol>
-      <%= will_paginate @albums %>
     <% end %>
   </div>
 </div>

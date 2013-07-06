@@ -1,0 +1,20 @@
+<% provide(:title, @title) %>
+<div class="row">
+  <aside class="span4">
+    <section>
+      <%= render 'shared/user_info' %>
+    </section>
+    <section>
+      <%= render 'shared/stats' %>
+    </section>
+    <section>
+      <h4>Upload your albums!</h4>
+      <%= render 'shared/album_form' if current_user?(@user) %>
+    </section>
+  </aside>
+  <div class="span8">
+    <h3><%= @title %></h3>
+    <%= render 'shared/album_form_search' %>
+    <%= render 'shared/albums' %>
+  </div>
+</div>

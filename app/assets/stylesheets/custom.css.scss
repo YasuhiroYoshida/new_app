@@ -248,8 +248,26 @@ aside {
 
 /* micropost jQuery remainingChar */
 
-.remainingChar {
+.remainingCharForMicropost, .remainingCharForAlbum {
   display: inline;
   padding-left: 30px;
   color: $grayLight;
 }
+
+/* album */
+
+.albums {
+  list-style: none;
+  margin: 10px 0 0 0;
+
+  li {
+    padding: 10px 0;
+    border-top: 1px solid #e8e8e8;
+    .album_title {
+      display: inline;
+      padding-left: 30px;
+      font-style: italic;
+    }
+  }
+}
+

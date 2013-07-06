@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
 #  devise :database_authenticatable, :registerable,
 #         :recoverable, :rememberable, :trackable, :validatable
-  attr_accessible :name, :email, :password, :password_confirmation
+  attr_accessible :name, :email, :password, :password_confirmation, :avatar
   attr_protected :admin
   
   has_secure_password
@@ -43,6 +43,10 @@ class User < ActiveRecord::Base
 
   def feed
     Micropost.from_users_followed_by(self)
+  end
+
+  def album_list
+    Album.listed_by(self)
   end
 
   def following?(other_user)

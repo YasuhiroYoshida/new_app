@@ -216,10 +216,10 @@ describe User do
   describe "album associations" do
     before { @user.save }
     let!(:first_album) do
-      FactoryGirl.create(:album, user: @user, album_title: "ABC" )
+      FactoryGirl.create(:album, user: @user, album_title: "ABC", photo: Rack::Test::UploadedFile.new(Rails.root + 'spec/fixtures/files/' + 'blue.jpeg', 'image/jpg'))
     end
     let!(:second_album) do
-      FactoryGirl.create(:album, user: @user, album_title: "C is for What?")
+      FactoryGirl.create(:album, user: @user, album_title: "C is for What?", photo: Rack::Test::UploadedFile.new(Rails.root + 'spec/fixtures/files/' + 'blue.jpeg', 'image/jpg'))
     end
 
     it "should have the right albums in the right order" do

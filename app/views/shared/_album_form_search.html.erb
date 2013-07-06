@@ -1,0 +1,5 @@
+<%= form_tag "/users/#{@user.id}/albums", method: :get do %>
+    Search albums:
+    <%= text_field_tag :album_title, params[:album_title], placeholder: "Enter a keyword" %>
+  <%= submit_tag "Search", class: "btn btn-large btn-primary" %>
+<% end %>

@@ -84,7 +84,6 @@ describe "Authentication" do
       end
  
       describe "in the Users controller" do
-        let(:user) { FactoryGirl.create(:user) }
 
         describe "visiting the edit page" do
           before { visit edit_user_path(user) }
@@ -109,6 +108,11 @@ describe "Authentication" do
         describe "visiting the followers page" do
           before { visit followers_user_path(user) }
           it { should have_title('Sign in') }
+        end
+    
+        describe "visiting the albums page" do
+          before { visit albums_user_path(user) }
+          it { should_not have_content('Upload') }
         end
       end
 
@@ -138,14 +142,20 @@ describe "Authentication" do
       end
       
       describe "in the Album controller" do
-
         describe "submitting to the create action" do
-          before { post albums_path }
-          specify { response.should redirect_to(signin_path) }
+          before do 
+            post albums_path,
+              :user_id => user.id,
+              :album_title => "Blue",
+              :photo => fixture_file_upload(Rails.root + 'spec/fixtures/files/' + 'blue.jpeg', 'image/jpg')
+          end
+          specify { expect(response).to redirect_to(signin_path) }
         end
 
         describe "submitting to the destroy action" do
-          before { delete album_path(FactoryGirl.create(:album)) }
+          before do
+            delete album_path(FactoryGirl.create(:album, user: user, album_title: "Blue", photo: Rack::Test::UploadedFile.new(Rails.root + 'spec/fixtures/files/' + 'blue.jpeg', 'image/jpg')))
+          end
           specify { response.should redirect_to(signin_path) }
         end
       end

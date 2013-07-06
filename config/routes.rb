@@ -2,13 +2,14 @@ NewApp::Application.routes.draw do
 #  devise_for :users
   resources :users do
     member do
-      get :following, :followers
+      get :following, :followers, :albums
     end
   end
+
   resources :sessions,      only: [:new, :create, :destroy]
   resources :microposts,    only: [:create, :destroy]
   resources :relationships, only: [:create, :destroy]
-  resources :albums,        only: [:create, :destroy]
+  resources :albums,        only: [:create, :destroy, :index]
   
   root to: 'static_pages#home'
 

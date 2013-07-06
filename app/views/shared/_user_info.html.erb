@@ -1,5 +1,10 @@
 <a href="<%= user_path(current_user) %>">
+<% @user = params['id'].present? ? User.find(params[:id]) : current_user %>
+<% if current_user?(@user) %>
   <%= gravatar_for current_user, size: 52 %>
+<% else %>
+  <%= gravatar_for User.find(params[:id]), size: 52 %>
+<% end %>
 </a>
 <h1>
   <%= current_user.name %>

@@ -17,6 +17,7 @@ FactoryGirl.define do
 
   factory :album do
     album_title "Thriller"
+    photo Rack::Test::UploadedFile.new(Rails.root + 'spec/fixtures/files/' + 'blue.jpeg', 'image/jpg')
     user
   end
 end

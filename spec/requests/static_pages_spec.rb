@@ -34,15 +34,15 @@ describe "Static pages" do
         end
       end
     
-      describe "follower/following counts" do
+      describe "follower/following counts on home" do
         let(:other_user) { FactoryGirl.create(:user) }
         before do
           other_user.follow!(user)
           visit root_path
         end
 
-        it { should have_link("0 following", href: following_user_path(user)) }
-        it { should have_link("1 followers", href: followers_user_path(user)) }
+        it { should_not have_link("0 following", href: following_user_path(user)) }
+        it { should_not have_link("1 followers", href: followers_user_path(user)) }
       end
 
       # Excercise 11.5.4
@@ -55,6 +55,22 @@ describe "Static pages" do
 
         it { should have_link("0 following", href: following_user_path(user)) }
         it { should have_link("1 followers", href: followers_user_path(user)) }
+      end
+
+      describe "albums counts on home" do
+        before do
+          FactoryGirl.create(:album, user: user, album_title: "Blue", photo: Rack::Test::UploadedFile.new(Rails.root + 'spec/fixtures/files/' + 'blue.jpeg', 'image/jpg'))
+          visit root_path(user)
+        end
+        it { should_not have_link("1 albums", href: albums_user_path(user)) }
+      end
+
+      describe "albums counts on user profile" do
+        before do
+          FactoryGirl.create(:album, user: user, album_title: "Blue", photo: Rack::Test::UploadedFile.new(Rails.root + 'spec/fixtures/files/' + 'blue.jpeg', 'image/jpg'))
+          visit user_path(user)
+        end
+        it { should have_link("1 albums", href: albums_user_path(user)) }
       end
     end
   

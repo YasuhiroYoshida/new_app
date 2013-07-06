@@ -12,4 +12,10 @@
     </strong>
     followers
   </a>
+  <a href="<%= albums_user_path(@user) %>">
+    <strong id="albums" class="stat">
+      <%= @user.albums.count %>
+    </strong>
+    albums
+  </a>
 </div>

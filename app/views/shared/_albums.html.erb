@@ -1,0 +1,6 @@
+<% if @albums.any? %>
+  <ul class="albums">
+    <%= render partial: 'shared/album', collection: @albums, paginate: 5 %>
+  </ul>
+  <%= will_paginate @albums %>
+<% end %>

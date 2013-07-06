@@ -44,8 +44,13 @@ end
 
 def make_albums
   users = User.all(limit: 6)
-  12.times do
-    album_title = Faker::Lorem.sentence(5)
-    users.each { |user| user.albums.create!(album_title: album_title) }
+  12.times do |n|
+    album_title = Faker::Lorem.words(3).join(' ')
+    users.each { |user| 
+      user.albums.create!(
+        album_title: "#{album_title} part #{n+1} ",
+        photo: Rack::Test::UploadedFile.new(Rails.root + 'spec/fixtures/files/' + 'blue.jpeg', 'image/jpg')
+      ) 
+    }
   end
 end
