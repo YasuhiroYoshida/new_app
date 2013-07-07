@@ -4,7 +4,7 @@ describe "Album pages" do
 
   subject { page }
 
-  describe "for signed-in users"do
+  describe "for signed-in users" do
     let(:user) { FactoryGirl.create(:user) }
     before do
       sign_in user
@@ -69,11 +69,11 @@ describe "Album pages" do
           fill_in 'album_title', with: "23"
           click_button "Search"
         end
-        let(:first_img) { Album.find_id_by_album_title('12345').to_s }
+        let(:first_img)  { Album.find_id_by_album_title('12345').to_s }
         let(:second_img) { Album.find_id_by_album_title('45123').to_s }
-        let(:third_img) { Album.find_id_by_album_title('abcde').to_s }
+        let(:third_img)  { Album.find_id_by_album_title('abcde').to_s }
         
-        # These 'have_css' should be working       
+        # These commented 'have_css' should be working       
         it "should return the correct search results" do
           page.should have_selector("span.album_title", text: '12345')
           #page.should have_css("img[src*='#{Rails.root}/public/assets/album_covers/#{first_img}/thumb/images.jpeg']")
@@ -86,13 +86,13 @@ describe "Album pages" do
 
       describe "with a blank keyword" do
         before do
-      visit albums_user_path(user)
+          visit albums_user_path(user)
           fill_in 'album_title', with: ""
           click_button "Search"
         end
-        let(:first_img) { Album.find_id_by_album_title('12345').to_s }
+        let(:first_img)  { Album.find_id_by_album_title('12345').to_s }
         let(:second_img) { Album.find_id_by_album_title('45123').to_s }
-        let(:third_img) { Album.find_id_by_album_title('abcde').to_s }
+        let(:third_img)  { Album.find_id_by_album_title('abcde').to_s }
 
         # These 'have_css' should be working       
         it "should return all entries" do

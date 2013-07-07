@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   def show 
     @user = User.find(params[:id])
     @microposts = @user.microposts.paginate(page: params[:page], :per_page => 10)
-    @albums = @user.albums.paginate(page: params[:page], :order => 'album_title asc', :per_page => 10)
+    @albums = @user.albums.paginate(page: params[:page], :order => 'album_title asc', :per_page => 5)
   end
 
   def new
@@ -78,7 +78,7 @@ class UsersController < ApplicationController
   end
 
   def albums
-    @title  = "Albums"
+    @title  = "Album covers"
     @user   = User.find(params[:id])
     @albums = @user.albums.search({:album_title => params[:album_title]}, {:page => params[:page]})
     render 'show_albums'

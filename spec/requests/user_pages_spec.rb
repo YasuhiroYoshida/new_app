@@ -280,8 +280,8 @@ describe "User pages" do
       visit albums_user_path(user)
     end
 
-    it { should have_title(full_title('Albums')) }
-    it { should have_selector('h3', text: 'Albums') }
+    it { should have_title(full_title('Album covers')) }
+    it { should have_selector('h3', text: 'Album covers') }
     it { should have_link(user.name, href: user_path(user)) }
   end
 end

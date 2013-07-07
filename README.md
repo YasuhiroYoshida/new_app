@@ -1,5 +1,5 @@
-new_app
-=======
+~~new_app~~ No-name app
+=======================
 
 A quick experiment. An application to manage ~~music~~ image albums. 
 

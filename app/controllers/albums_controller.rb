@@ -12,7 +12,7 @@ class AlbumsController < ApplicationController
   def create
     @micropost = current_user.microposts.build(params[:micropost])
     @album = current_user.albums.build(params[:album])
-    @albums = current_user.albums.paginate(page: params[:page], :order => 'album_title asc')
+    @albums = current_user.albums.paginate(page: params[:page], :order => 'album_title asc', :per_page => 5)
    
     if @album.save
       flash[:success] = 'Album uploaded!'
